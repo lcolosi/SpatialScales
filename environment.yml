@@ -1,4 +1,4 @@
-name: ocean_scales
+name: spatial_scales
 channels:
   - defaults
   - conda-forge
