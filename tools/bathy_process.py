@@ -3,8 +3,8 @@
 # =============================================================================
 #
 # Description:
-#   Extracts bathymetry data from the ETOPO1 dataset for the Point Conception study 
-#   region and saves data in a smaller netCDF file.
+#   Extracts bathymetry data from the ETOPO1 dataset for the entire model 
+#   domain and saves data in a smaller netCDF file.
 #
 # Author:
 #   Luke Colosi
@@ -35,8 +35,8 @@ bathy = ds_bathy["z"]
 lon_n = lon_b % 360
 
 # Set longitude and latitude bounds for the region of interest
-lat_bnds   = [33, 35]                     
-lon_bnds   = [-123 % 360, -120 % 360]
+lat_bnds   = [27.2, 40]                     
+lon_bnds   = [-130 % 360, -117 % 360]
 
 # Grid spacing
 dlon = float(np.abs(lon_n[1] - lon_n[0]))
