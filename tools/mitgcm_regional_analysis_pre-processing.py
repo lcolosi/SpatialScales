@@ -131,21 +131,34 @@ for coord in ds.coords:
 # Print model domain summary
 # -----------------------------------------------------------------------------
 
-# Number of depth levels within the specified depth range
-n_depth = np.count_nonzero(ds.Z.values >= -depth)
+# Spatial extent
+lat_min = float(ds.YC.min().values)
+lat_max = float(ds.YC.max().values)
+lon_min = float(ds.XC.min().values)
+lon_max = float(ds.XC.max().values)
+
+# Vertical extent
+depth_min = float(-ds.Z.max().values)
+depth_max = float(-ds.Z.min().values)
+n_depth   = ds.Z.size
 
 # Temporal extent
 time_start = ds.time.values[0]
 time_end   = ds.time.values[-1]
+n_time     = ds.time.size
+
+# Horizontal grid dimensions
+n_lat, n_lon = ds.XC.shape
 
 # Print summary
-print("\n--- Regional MITgcm Model Summary ---")
-print(f"Latitude range   : {lat_bnds[0]:.2f}°N to {lat_bnds[1]:.2f}°N")
-print(f"Longitude range  : {lon_bnds[0]:.2f}°E to {lon_bnds[1]:.2f}°E")
-print(f"Maximum depth    : {depth:.1f} m")
+print("\n--- MITgcm Model Domain Summary ---")
+print(f"Latitude range   : {lat_min:.2f}°N to {lat_max:.2f}°N")
+print(f"Longitude range  : {lon_min:.2f}°E to {lon_max:.2f}°E")
+print(f"Grid dimensions  : {n_lat} × {n_lon}")
+print(f"Depth range      : {depth_min:.2f} to {depth_max:.2f} m")
 print(f"Depth levels     : {n_depth}")
 print(f"Temporal extent  : {time_start} to {time_end}")
-print(f"Time steps       : {ds.sizes['time']:,}")
-print("------------------------------------\n")
+print(f"Time steps       : {n_time:,}")
+print("-----------------------------------\n")
 
 
