@@ -10,20 +10,23 @@
 #   Luke Colosi
 #
 # Created:
-#   2026-08-12
+#   2026-10-28
 # =============================================================================
 
 # Import python libraries 
 import os
+from pathlib import Path
 import xarray as xr
 import numpy as np
 
-# Set paths to data directory
-ROOT = '/Users/lukecolosi/Desktop/projects/graduate_research/Gille_lab/OceanScales/'
-PATH_data  = ROOT + 'data/bathymetry/'
+# Set path to project root directory
+ROOT = Path(__file__).resolve().parents[1]
+
+# Set paths to project directories
+PATH_data = ROOT / "data" / "bathymetry"
 
 # Load bathymetry data 
-filename = PATH_data + "topo_25.1.nc"
+filename = PATH_data / "topo_25.1.nc"
 ds_bathy = xr.open_dataset(filename, engine="netcdf4")
 
 # Extract data variables
@@ -54,24 +57,6 @@ lat_grid = lat_b[(lat_b >= lat_min) & (lat_b <= lat_max)]
 bathy_grid   = bathy[(lat_b >= lat_min) & (lat_b <= lat_max),(lon_n >= lon_min) & (lon_n <= lon_max)]
 
 # Create data arrays
-LON = xr.DataArray(data=lon_grid, 
-                    dims=['lon'],
-                    coords=dict(lon=lon_grid),
-                    attrs=dict(
-                        description='Longitude coordinate vector for bathymetry.',
-                        units='degrees'
-                        )
-)
-
-LAT = xr.DataArray(data=lat_grid, 
-                    dims=['lat'],
-                    coords=dict(lat=lat_grid),
-                    attrs=dict(
-                        description='Latitude coordinate vector for bathymetry.',
-                        units='degrees'
-                        )
-)
-
 BATHY = xr.DataArray(data=bathy_grid, 
                     dims=['lat','lon'],
                     coords=dict(lat=lat_grid,lon=lon_grid),
@@ -82,10 +67,10 @@ BATHY = xr.DataArray(data=bathy_grid,
 )
 
 # Create data set from data arrays 
-data = xr.Dataset({'LON':LON,'LAT':LAT,'BATHY':BATHY})
+data = xr.Dataset({'BATHY':BATHY})
 
 # Set file path for saving the netcdf file
-file_path = PATH_data + "etopo1_point_conception.nc"
+file_path = PATH_data / "etopo1_model_domain.nc"
 
 # Check if file exists, then delete it
 if os.path.exists(file_path):

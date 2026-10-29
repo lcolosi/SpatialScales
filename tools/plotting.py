@@ -30,27 +30,29 @@ def set_coastlines(
     lon_max, 
     lat_min, 
     lat_max,
+    plot_states=False,
 ):
 
     """
-    Function for setting the spatial limits of a cartopy figure and plotting the 
-    coastline and land mask. 
+    Function for setting the spatial limits of a cartopy figure and plotting the
+    coastline, land mask, and optionally state boundaries.
 
     Parameters
     ----------
-    ax         : Geospatial axes for the subplot (cartopy object).
-    projection : Cartopy map projection. 
-    resolution : Specifies the resolution of the coastline map. 
-                    Options include: '110m', '50m', '10m'
-    lon_min    : Minimum extent for longitude on the scale from -180 to 179
-    lon_max    : Maximum extent for longitude on the scale from -180 to 179
-    lat_min    : Minimum extent for latitude on the scale from -90 to 89
-    lat_max    : Maximum extent for latitude on the scale from -90 to 89
+    ax          : Geospatial axes for the subplot (cartopy object).
+    projection  : Cartopy map projection.
+    resolution  : Specifies the resolution of the coastline map.
+                  Options include: '110m', '50m', '10m'
+    lon_min     : Minimum longitude (-180 to 180).
+    lon_max     : Maximum longitude (-180 to 180).
+    lat_min     : Minimum latitude (-90 to 90).
+    lat_max     : Maximum latitude (-90 to 90).
+    plot_states : Boolean indicating whether to plot state boundaries.
+                  Default is False.
 
     Returns
     -------
-    No objects returned. A geospatial map with desired longitude and latitude
-    extent with coastlines and land.
+    None
     """
 
     # Set extents of map
@@ -59,8 +61,20 @@ def set_coastlines(
     # Plot coastlines and land
     ax.coastlines(resolution=resolution)
     ax.add_feature(
-        cfeature.NaturalEarthFeature("physical", "land", resolution, facecolor="Gray")
+        cfeature.NaturalEarthFeature(
+            "physical", "land", resolution, facecolor="Gray"
+        )
     )
+
+    # Optionally plot state boundaries
+    if plot_states:
+        ax.add_feature(
+            cfeature.STATES.with_scale(resolution),
+            edgecolor="black",
+            linewidth=0.5,
+            linestyle="-",
+            zorder=3,
+        )
 
     return
 

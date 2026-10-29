@@ -1,0 +1,26 @@
+#----- Git Ignore File -----#
+.vscode
+
+# Data directory
+data/bathymetry/
+data/mitgcm/
+data/calcofi/
+
+# Figs directory
+figs/testing/
+
+# Docs directory
+docs/
+
+# Src directory
+src/__pycache__/
+src/fig_stats/
+
+# Tools directory
+tools/__pycache__/
+tools/testing/
+
+
+# Notebooks directory
+notebooks/__pycache__/
+notebooks/trouble_shotting/
