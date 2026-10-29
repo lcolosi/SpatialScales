@@ -148,7 +148,8 @@ time_end   = ds.time.values[-1]
 n_time     = ds.time.size
 
 # Horizontal grid dimensions
-n_lat, n_lon = ds.XC.shape
+n_lat = ds.YC.size
+n_lon = ds.XC.size
 
 # Print summary
 print("\n--- MITgcm Model Domain Summary ---")
