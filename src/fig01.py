@@ -115,10 +115,10 @@ calCOFI_lon   = calCOFI_line80[:, 2]
 # Set plotting parameters
 projection = ccrs.PlateCarree(central_longitude=0.0)
 resolution = "10m"
-xticks = np.arange(-130,-118+2,2) 
-yticks = np.arange(27.5,39.5+1,1) 
-lon_min, lon_max = -130, -117
-lat_min, lat_max = 27.2, 40
+xticks = np.arange(-130,-116+2,2) 
+yticks = np.arange(31,43+1,1) 
+lon_min, lon_max = -130, -116
+lat_min, lat_max = 31, 43
 levels    = np.arange(0, 4500+50, 50) 
 levels_is = np.arange(100,300+100,100)
 levels_ms = np.arange(1000,3000+500,500)
